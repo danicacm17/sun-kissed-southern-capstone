@@ -1,25 +1,61 @@
 # Sun-Kissed & Southern ☀️🌴
 
-This is my Capstone Project for Springboard: an ecommerce web app for *Sun-Kissed & Southern*, a beach lifestyle brand featuring t-shirts, towels, and accessories inspired by the Florida coast.
+Welcome to **Sun-Kissed & Southern**, my full-stack capstone project for Springboard — a beach lifestyle ecommerce store inspired by the Florida coast. This app is built to simulate a production-grade shopping experience, including real APIs, admin tools, and responsive frontend design.
 
-## Project Overview
+## 🛍️ Features
 
-This app will allow users to:
-- Browse and search for products
-- Add items to a shopping cart
-- Checkout securely using Cardknox (sandbox)
-- Track shipments via KeyDelivery API
-- Enjoy blog posts on Florida living (with optional weather-based content)
+- Browse and filter products by category
+- Select variants (color, size) and view sale prices
+- Favorite products (for logged-in users)
+- Guest-friendly cart with persistent localStorage
+- Coupon codes and dynamic sales
+- Secure checkout using **Cardknox API (sandbox)**
+- Order tracking via **KeyDelivery (sandbox)**
+- Admin dashboard to manage:
+  - Products & variants
+  - Orders & returns
+  - Fulfillment flow (paid → fulfilled → shipped)
+  - Analytics and inventory alerts
+- Lifestyle blog with optional weather content
 
-## Tech Stack
+## 🧰 Tech Stack
 
-This section will be updated as the tech stack is finalized.
+**Frontend**  
+- React (Vite)  
+- React Router, Context API  
+- CSS Modules for scoped styling  
 
-## Planned API Integrations
-- [Cardknox API (Sandbox)](https://developer.cardknox.com/)
-- [KeyDelivery API](https://www.trackingmore.com/api.html)
-- [OpenWeatherMap API](https://openweathermap.org/api) (optional, for blog)
+**Backend**  
+- Python Flask (REST API)  
+- PostgreSQL (via SQLAlchemy)  
+- JWT authentication  
+- Flask-Migrate, Marshmallow for schema validation  
 
-## Status
+**APIs Used**  
+- [Cardknox Sandbox](https://developer.cardknox.com/) — payment processing  
+- [KeyDelivery API](https://www.kd100.com/en/) — order tracking  
+- [OpenWeatherMap](https://openweathermap.org/api) *(optional for blog)*
 
-🟢 Initial planning phase — project setup and idea submission complete.
+## 🗺️ Architecture
+
+- Frontend and backend are separated, each deployed independently
+- Backend hosted via Render (or Railway)
+- Frontend hosted via Netlify (or Vercel)
+- Environment variables used to protect API keys
+
+## 📦 Database Schema
+
+You can view the updated schema in [`assets/database-schema.png`](assets/database-schema.png)  
+Or on [dbdiagram.io](https://dbdiagram.io/):  
+➡️ `https://dbdiagram.io/d/Sun-Kissed-and-Southern-67d1b7cf75d75cc844d787ff`
+
+## ✅ Status
+
+🟢 **In final testing & polish phase**  
+✅ Full checkout flow and admin panel complete  
+✅ Sales, coupons, and review system fully functional  
+🧪 Actively testing edge cases before deployment
+
+## 📄 Project Proposal
+
+You can view the full [PROJECT_PROPOSAL.md](PROJECT_PROPOSAL.md) for detailed feature scope, timeline, and architecture notes.
