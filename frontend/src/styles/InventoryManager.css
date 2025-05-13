@@ -1,0 +1,131 @@
+.inventory-manager {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+  color: #4e4e4e;
+}
+
+.inventory-manager h2 {
+  color: #0f9098;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.inventory-manager label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.inventory-manager input[type="number"] {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 80px;
+}
+
+/* Table Styling */
+.inventory-manager table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.inventory-manager th,
+.inventory-manager td {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.inventory-manager th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+  color: #333;
+}
+
+.inventory-manager tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.inventory-manager p {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  /* General padding and width */
+  .admin-analytics,
+  .manage-products,
+  .inventory-manager,
+  .fulfillment-view,
+  .manage-returns,
+  .manage-users,
+  .manage-orders,
+  .moderate-reviews,
+  .admin-dashboard,
+  .manage-blog {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  /* Form inputs */
+  .product-form input,
+  .product-form textarea,
+  .product-form select,
+  .variant-form input,
+  .variant-form select,
+  .variant-form textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Tables */
+  .analytics-table th,
+  .analytics-table td,
+  table th,
+  table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  /* Buttons */
+  button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Flex containers */
+  .variant-entry,
+  .product-actions,
+  .variant-buttons,
+  .variant-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optional: tighten spacing on cards */
+  .product-card,
+  .blog-entry,
+  .user-entry,
+  .return-entry {
+    padding: 1rem;
+  }
+}

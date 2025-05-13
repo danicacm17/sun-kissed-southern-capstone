@@ -1,0 +1,58 @@
+.admin-analytics {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+  color: #4e4e4e;
+}
+
+.admin-analytics h2 {
+  color: #0f9098;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.analytics-section {
+  background: #f9f9f9;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+}
+
+.analytics-section h3 {
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.analytics-section ul {
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.analytics-section li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .admin-analytics {
+    padding: 1rem;
+  }
+
+  .analytics-section h3 {
+    font-size: 1rem;
+  }
+
+  .analytics-table th,
+  .analytics-table td {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+    word-break: break-word;
+  }
+
+  .analytics-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,170 @@
+.manage-users {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+  color: #4e4e4e;
+}
+
+.manage-users h2 {
+  color: #0f9098;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.manage-users input[type="text"] {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1.2rem;
+}
+
+.manage-users ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.manage-users li {
+  background-color: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.manage-users li strong {
+  color: #0f9098;
+}
+
+.manage-users button {
+  background-color: #0c7b82;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.manage-users button:hover {
+  background-color: #06666b;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.pagination-controls button {
+  background-color: #0c7b82;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin: 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.pagination-controls span {
+  font-weight: 500;
+  color: #4e4e4e;
+}
+
+.user-details {
+  border-top: 1px solid #ccc;
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+
+.user-details h3,
+.user-details h4 {
+  color: #0f9098;
+  margin-bottom: 0.5rem;
+}
+
+.user-details p {
+  margin: 0.4rem 0;
+}
+
+.user-details ul {
+  padding-left: 1rem;
+}
+
+.user-details li {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  /* General padding and width */
+  .admin-analytics,
+  .manage-products,
+  .inventory-manager,
+  .fulfillment-view,
+  .manage-returns,
+  .manage-users,
+  .manage-orders,
+  .moderate-reviews,
+  .admin-dashboard,
+  .manage-blog {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  /* Form inputs */
+  .product-form input,
+  .product-form textarea,
+  .product-form select,
+  .variant-form input,
+  .variant-form select,
+  .variant-form textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Tables */
+  .analytics-table th,
+  .analytics-table td,
+  table th,
+  table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  /* Buttons */
+  button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Flex containers */
+  .variant-entry,
+  .product-actions,
+  .variant-buttons,
+  .variant-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optional: tighten spacing on cards */
+  .product-card,
+  .blog-entry,
+  .user-entry,
+  .return-entry {
+    padding: 1rem;
+  }
+}

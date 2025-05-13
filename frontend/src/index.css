@@ -1,0 +1,19 @@
+:root {
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #4e4e4e;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #0f9098;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0c7b82;
+}

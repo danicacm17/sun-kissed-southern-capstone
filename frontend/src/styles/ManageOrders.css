@@ -1,0 +1,215 @@
+.manage-orders {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+  color: #4e4e4e;
+}
+
+.manage-orders h2 {
+  color: #0f9098;
+  margin-bottom: 1.2rem;
+  font-size: 1.8rem;
+}
+
+.manage-orders input[type="text"] {
+  padding: 0.6rem;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.manage-orders ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.manage-orders li {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.manage-orders h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  color: #0f9098;
+}
+
+.manage-orders p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.manage-orders h4 {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: #0f9098;
+}
+
+.manage-orders button {
+  background-color: #0f9098;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 4px 6px 0 0;
+  transition: background-color 0.2s ease;
+}
+
+.manage-orders button:hover {
+  background-color: #0c7b82;
+}
+
+.manage-orders textarea,
+.manage-orders select,
+.manage-orders input[type="text"] {
+  width: 300px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  margin-right: 0.75rem;
+}
+
+.manage-orders .return-modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 2rem;
+  z-index: 1000;
+  max-width: 500px;
+  width: 90%;
+  border-radius: 8px;
+}
+
+.manage-orders .return-modal h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #0f9098;
+}
+
+.manage-orders .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.manage-orders .pagination button {
+  margin: 0 0.5rem;
+}
+
+.tracking-edit-btn {
+  font-size: 0.75rem;
+  padding: 0;
+  border: none;
+  background-color: #0c7b82;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.tracking-edit-btn:hover {
+  background-color: #06666b;
+}
+
+.load-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.load-more-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #4e4e4e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.load-more-button:hover {
+  background-color: #0f9098;
+}
+
+@media (max-width: 768px) {
+  /* General padding and width */
+  .admin-analytics,
+  .manage-products,
+  .inventory-manager,
+  .fulfillment-view,
+  .manage-returns,
+  .manage-users,
+  .manage-orders,
+  .moderate-reviews,
+  .admin-dashboard,
+  .manage-blog {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  /* Form inputs */
+  .product-form input,
+  .product-form textarea,
+  .product-form select,
+  .variant-form input,
+  .variant-form select,
+  .variant-form textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Tables */
+  .analytics-table th,
+  .analytics-table td,
+  table th,
+  table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  /* Buttons */
+  button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Flex containers */
+  .variant-entry,
+  .product-actions,
+  .variant-buttons,
+  .variant-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optional: tighten spacing on cards */
+  .product-card,
+  .blog-entry,
+  .user-entry,
+  .return-entry {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,224 @@
+.profile-page {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.profile-page h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-section {
+  margin-bottom: 2.5rem;
+}
+
+.profile-section h3 {
+  color: #0f9098;
+  margin-bottom: 0.5rem;
+}
+
+.profile-section label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.profile-section input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.profile-page .password-field {
+  position: relative;
+}
+
+.profile-page .password-field input {
+  padding-right: 2.5rem;
+}
+
+.profile-page .eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 45%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555;
+}
+
+.profile-page button {
+  background-color: #4e4e4e;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 1rem auto 2rem auto;
+}
+
+.profile-page button:hover {
+  background-color: #333;
+}
+
+.profile-page .success-message {
+  color: rgb(89, 177, 89);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-page .error-message {
+  color: #f28b82;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-page .order-card {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  transition: background 0.2s ease;
+}
+
+.profile-page .order-summary {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.profile-page .order-summary:hover {
+  background-color: #f0f0f0;
+}
+
+.profile-page .toggle-details {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: #0f9098;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.profile-page .order-details {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.profile-page .order-item {
+  margin-left: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.profile-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.profile-page .pagination button {
+  background-color: #4e4e4e;
+  color: white;
+  padding: 0.4rem 1.2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-page .pagination button:disabled {
+  background-color: #999;
+  cursor: default;
+}
+
+/* Review Modal Styles */
+.review-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.review-modal h4 {
+  margin-bottom: 1rem;
+  color: #0f9098;
+}
+
+.review-modal textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.review-modal select {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.review-modal button {
+  background-color: #4e4e4e;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0.25rem;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+}
+
+.review-modal button:hover {
+  background-color: #333;
+}
+
+.review-modal button:last-of-type {
+  background-color: #aaa;
+}
+
+.review-modal button:last-of-type:hover {
+  background-color: #888;
+}
+
+/* Leave Review Link */
+.profile-page .leave-review-link {
+  color: #0f9098;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 1rem;
+  text-decoration: underline;
+}
+
+.profile-page .leave-review-link:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 1rem;
+  }
+
+  .order-card {
+    font-size: 0.9rem;
+  }
+
+  .eye-icon {
+    right: 8px;
+  }
+}

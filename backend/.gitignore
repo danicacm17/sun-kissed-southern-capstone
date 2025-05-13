@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Flask environment
+.env
+instance/
+
+# Logs & misc
+*.log

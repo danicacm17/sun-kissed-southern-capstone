@@ -1,0 +1,275 @@
+.manage-products {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+  color: #4e4e4e;
+}
+
+.manage-products h2 {
+  color: #0f9098;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  text-align: left;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 800px;
+  padding: 10px 12px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.open-modal {
+  margin-bottom: 1.5rem;
+  padding: 10px 16px;
+  background-color: #0f9098;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: auto;
+}
+
+.open-modal:hover {
+  background-color: #0a6f73;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  z-index: 1001;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.modal input,
+.modal textarea,
+.modal select {
+  width: 100%;
+  padding: 10px;
+  margin: 2px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Modal Image Preview */
+.modal img.image-preview {
+  max-width: 140px;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-top: 10px;
+  object-fit: contain;
+}
+
+/* Product Card */
+.product-card {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.product-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.product-card h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.product-card .sku {
+  font-weight: 400;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.product-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+}
+
+.product-buttons-inline {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.product-buttons-inline button {
+  padding: 8px 12px;
+  font-size: 13px;
+  background-color: #4e4e4e;
+  color: white;
+  border: none;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.product-buttons-inline button:hover {
+  background-color: #333;
+}
+
+/* Main Product Image Preview */
+.main-product-image {
+  max-width: 60px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+/* Variants Section */
+.variants-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.variants-header h4 {
+  font-size: 1rem;
+  color: #4e4e4e;
+  margin: 0;
+}
+
+.add-variant-button {
+  background-color: #0f9098;
+  color: white;
+  font-weight: 600;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-variant-button:hover {
+  background-color: #0a6f73;
+}
+
+/* Variant List */
+.variant-list {
+  margin-top: 10px;
+}
+
+.variant-item {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 7px 14px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.variant-buttons button {
+  margin-left: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  background-color: #4e4e4e;
+  color: white;
+  cursor: pointer;
+}
+
+.variant-buttons button:hover {
+  background-color: #333;
+}
+
+.error-message {
+  color: #f28b82;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .manage-products {
+    padding: 16px;
+  }
+
+  .product-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-product-image {
+    max-height: 80px;
+    margin-top: 12px;
+  }
+
+  .variant-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .variant-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .open-modal,
+  .add-variant-button {
+    width: 100%;
+  }
+
+  .modal {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+}

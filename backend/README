@@ -1,0 +1,128 @@
+# 🌞 Sun-Kissed & Southern — Backend API
+
+This is the backend API powering **Sun-Kissed & Southern**, a modern e-commerce site focused on stylish apparel and a seamless shopping experience.
+
+## 🚀 Features
+
+- 🔐 JWT authentication + bcrypt password hashing  
+- 👥 Role-based access (`admin`, `user`, `fulfillment`, `customer_service`)  
+- 🛒 Full cart and checkout flow  
+- 📦 Product and inventory management  
+- 📊 Admin analytics dashboard  
+- 💬 Customer reviews with moderation  
+- 💖 Favorites system  
+- 📝 Admin blog posts with weather integration  
+
+## 🛠️ Tech Stack
+
+- Python 3.12 + Flask  
+- PostgreSQL + SQLAlchemy  
+- Flask-JWT-Extended  
+- Pytest  
+- Render (deployment)
+
+## 📁 Project Structure
+
+```
+backend/
+├── app/
+│   ├── models/
+│   ├── routes/
+│   ├── __tests__/
+│   └── utils/
+├── server.py
+├── requirements.txt
+├── seed.py
+└── README.md
+```
+
+## 💻 Getting Started
+
+### 1. Clone + Set Up Environment
+
+```bash
+git clone https://github.com/danicacm17/sun-kissed-southern.git
+cd sun-kissed-southern/backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 2. Create `.env` File
+
+```
+DATABASE_URL=postgresql:///sun_kissed
+JWT_SECRET_KEY=your_jwt_secret
+```
+
+### 3. Set Up Database
+
+```bash
+createdb sun_kissed
+python seed.py
+```
+
+Or manually:
+
+```bash
+flask shell
+>>> from app import db
+>>> db.create_all()
+>>> exit()
+```
+
+### 4. Run the Server
+
+```bash
+flask run
+```
+
+App runs at: http://localhost:5000
+
+## ✅ Running Tests
+
+```bash
+PYTHONPATH=. pytest
+```
+
+Test files are located in `app/__tests__/`.
+
+## 📊 Admin Analytics
+
+- `/api/admin/analytics`
+- Returns:
+  - Orders grouped by city
+  - Revenue grouped by day
+  - Top 5 customers
+  - Low stock alerts
+  - Fulfillment summary
+
+## 📬 Example Endpoints
+
+| Method | Endpoint                            | Description                     |
+|--------|-------------------------------------|---------------------------------|
+| POST   | `/api/auth/login`                   | Authenticate user               |
+| GET    | `/api/products`                     | List products                   |
+| GET    | `/api/cart`                         | Get current user’s cart         |
+| POST   | `/api/orders`                       | Submit new order                |
+| GET    | `/api/admin/analytics`              | Admin dashboard metrics         |
+| POST   | `/api/admin/products`               | Admin create product            |
+| GET    | `/api/blog`                         | Public blog feed + weather      |
+
+## Cart Storage
+
+Currently, the cart is stored on the frontend in `localStorage`. Users do not need to be signed in to use the cart. No cart data is saved on the server.
+
+The backend contains preliminary code for server-side cart storage (`cart.py`, `cart_routes.py`), but this is commented out for now and not required for the current functionality.
+
+
+## 👤 Author
+
+**Danica Murphy**  
+GitHub: [@danicacm17](https://github.com/danicacm17)
+
+## 🏁 Status
+
+- ✅ Backend fully complete  
+- ✅ All tests pass (`pytest`)  
+- ✅ Ready for deployment and frontend integration  

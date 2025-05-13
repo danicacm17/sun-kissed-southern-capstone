@@ -1,0 +1,28 @@
+.about-page {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fffef6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: #4e4e4e;
+}
+
+.about-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #0f9098;
+  text-align: center;
+}
+
+.about-page p {
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.about-page strong {
+  color: #d8c40d;
+  font-weight: 600;
+}

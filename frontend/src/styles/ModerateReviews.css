@@ -1,0 +1,116 @@
+.moderate-reviews {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+  color: #4e4e4e;
+}
+
+.moderate-reviews h2 {
+  color: #0f9098;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.moderate-reviews ul {
+  list-style: none;
+  padding: 0;
+}
+
+.moderate-reviews li {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.moderate-reviews p.line {
+  margin: 0.4rem 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button-group {
+  margin-top: 1rem;
+}
+
+.button-group button {
+  background-color: #0f9098;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-group button:hover {
+  background-color: #0c7d84;
+}
+
+@media (max-width: 768px) {
+  /* General padding and width */
+  .admin-analytics,
+  .manage-products,
+  .inventory-manager,
+  .fulfillment-view,
+  .manage-returns,
+  .manage-users,
+  .manage-orders,
+  .moderate-reviews,
+  .admin-dashboard,
+  .manage-blog {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  /* Form inputs */
+  .product-form input,
+  .product-form textarea,
+  .product-form select,
+  .variant-form input,
+  .variant-form select,
+  .variant-form textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Tables */
+  .analytics-table th,
+  .analytics-table td,
+  table th,
+  table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  /* Buttons */
+  button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Flex containers */
+  .variant-entry,
+  .product-actions,
+  .variant-buttons,
+  .variant-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optional: tighten spacing on cards */
+  .product-card,
+  .blog-entry,
+  .user-entry,
+  .return-entry {
+    padding: 1rem;
+  }
+}

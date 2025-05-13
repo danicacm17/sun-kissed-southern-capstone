@@ -1,0 +1,108 @@
+.admin-dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.admin-dashboard > h2 {
+  text-align: center;
+  color: #4e4e4e;
+  margin-bottom: 1.75rem;
+  font-size: 1.8rem;
+}
+
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center nav only */
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-nav button {
+  background-color: #e6e6e6;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.admin-nav button:hover {
+  background-color: #d8c40d;
+  color: #4e4e4e;
+}
+
+.admin-nav button.active {
+  background-color: #0f9098;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  /* General padding and width */
+  .admin-analytics,
+  .manage-products,
+  .inventory-manager,
+  .fulfillment-view,
+  .manage-returns,
+  .manage-users,
+  .manage-orders,
+  .moderate-reviews,
+  .admin-dashboard,
+  .manage-blog {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  /* Form inputs */
+  .product-form input,
+  .product-form textarea,
+  .product-form select,
+  .variant-form input,
+  .variant-form select,
+  .variant-form textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Tables */
+  .analytics-table th,
+  .analytics-table td,
+  table th,
+  table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  /* Buttons */
+  button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Flex containers */
+  .variant-entry,
+  .product-actions,
+  .variant-buttons,
+  .variant-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optional: tighten spacing on cards */
+  .product-card,
+  .blog-entry,
+  .user-entry,
+  .return-entry {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,240 @@
+:root {
+  --primary-color: #d8c40d;        /* Yellow */
+  --secondary-color: #0f9098;      /* Teal */
+  --dark-color: #4e4e4e;
+  --background-color: #ffffff;
+  --text-color: #4e4e4e;
+
+  --heading-font: 'Inter', serif;
+  --body-font: 'Inter', sans-serif;
+}
+
+/* Reset + Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+  width: 100%;
+  font-family: var(--body-font);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  padding-bottom: 100px;
+}
+
+/* Default container wrapper */
+main, .page-content, .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Links */
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+/* Navbar */
+.navbar {
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar h2 a {
+  font-family: var(--heading-font);
+  font-size: 1.8rem;
+  color: var(--dark-color);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a,
+.nav-links button {
+  color: var(--secondary-color);
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  transition: background 0.2s ease;
+  border-radius: 4px;
+}
+
+.nav-links a:hover,
+.nav-links button:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Homepage & Grid Layouts */
+.home {
+  text-align: center;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.category-card {
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.category-card:hover {
+  background: var(--secondary-color);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+/* Cart & Checkout */
+.cart-page,
+.checkout-page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cart-page ul {
+  list-style: none;
+}
+
+.cart-page li {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form input,
+form select,
+form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: var(--body-font);
+}
+
+form button {
+  background: var(--secondary-color);
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+form button:hover {
+  background: var(--primary-color);
+}
+
+/* Misc pages (About, Contact, Policies) */
+.info-page {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.info-page h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #0f9098;
+}
+
+.info-page h4 {
+  margin-top: 1.5rem;
+  color: #4e4e4e;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contact-form button {
+  background-color: #0f9098;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.contact-form button:hover {
+  background-color: #0c7c84;
+}
+
+/* Loading */
+.loading-screen {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: #0f9098;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

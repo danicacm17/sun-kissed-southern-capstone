@@ -1,0 +1,169 @@
+.manage-blog {
+  max-width: 800px;
+  margin: 2rem auto;
+  font-family: 'Inter', sans-serif;
+  color: #4e4e4e;
+}
+
+.manage-blog h2 {
+  color: #0f9098;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.manage-blog h3 {
+  color: #0f9098;
+  margin-bottom: 1.5rem;
+}
+
+.manage-blog form {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.manage-blog form h4 {
+  color: #0f9098;
+  margin-bottom: 1rem;
+}
+
+.manage-blog input,
+.manage-blog textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.manage-blog button[type="submit"] {
+  background-color: #0c7b82;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: block;
+  margin-left: auto;
+}
+
+.manage-blog button[type="submit"]:hover {
+  background-color: #06666b;
+}
+
+.manage-blog ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.manage-blog li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
+.manage-blog h5 {
+  color: #0f9098;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.05rem;
+}
+
+.manage-blog p.post-preview {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.manage-blog .post-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.manage-blog .post-controls button {
+  background-color: #4e4e4e;
+  color: white;
+  border: none;
+  padding: 0.45rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.manage-blog .post-controls button:hover {
+  background-color: #0f9098;
+}
+
+@media (max-width: 768px) {
+  /* General padding and width */
+  .admin-analytics,
+  .manage-products,
+  .inventory-manager,
+  .fulfillment-view,
+  .manage-returns,
+  .manage-users,
+  .manage-orders,
+  .moderate-reviews,
+  .admin-dashboard,
+  .manage-blog {
+    padding: 1rem;
+    width: 100%;
+  }
+
+  /* Form inputs */
+  .product-form input,
+  .product-form textarea,
+  .product-form select,
+  .variant-form input,
+  .variant-form select,
+  .variant-form textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Tables */
+  .analytics-table th,
+  .analytics-table td,
+  table th,
+  table td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  /* Buttons */
+  button {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Flex containers */
+  .variant-entry,
+  .product-actions,
+  .variant-buttons,
+  .variant-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Optional: tighten spacing on cards */
+  .product-card,
+  .blog-entry,
+  .user-entry,
+  .return-entry {
+    padding: 1rem;
+  }
+}
