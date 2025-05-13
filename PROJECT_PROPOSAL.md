@@ -6,89 +6,95 @@
 - **Backend**: Python Flask (REST API)
 - **Frontend**: React (Vite + JSX)
 - **Database**: PostgreSQL
-- **Deployment**: Render or Railway for backend, Netlify or Vercel for frontend
+- **Deployment**: Render (backend), Netlify (frontend)
 - **APIs**:
-  - [Cardknox API](https://docs.cardknox.com/api/transaction) for payment processing
-  - [KD100/KeyDelivery API](https://www.kd100.com/docs/create-tracking) for shipment tracking
-  - Optional: [OpenWeatherMap API](https://openweathermap.org/api) for lifestyle blog weather snippets
+  - [Cardknox API](https://docs.cardknox.com/api/transaction) – Payment processing (sandbox)
+  - Optional: [KD100/KeyDelivery API](https://www.kd100.com/docs/create-tracking) – Shipment tracking
+  - [OpenWeatherMap API](https://openweathermap.org/api) – Weather snippets for blog
 
 ## 🔄 Project Focus
 
-This will be a **full-stack web application** with equal focus on backend structure and frontend design. I want to build a site that’s clean, responsive, and production-ready from both a user and engineering standpoint.
+A full-stack ecommerce platform focused on clean design, responsive UX, and a robust backend capable of handling complex order/fulfillment logic.
 
 ## 🌐 App Type
 
-This is a responsive **ecommerce website** designed for desktop and mobile browsers.
+Responsive ecommerce site (mobile + desktop) for a Florida beach lifestyle brand.
 
-## 🎯 Project Goal
+## 🎯 Project Goals
 
-The goal is to deploy a fully functioning ecommerce store for a Florida beach lifestyle brand. This will include:
+Deploy a functional store with:
 
-- Product catalog
-- User registration and login
-- Shopping cart & order checkout
-- Order tracking
-- Admin dashboard for managing products/orders
-- A blog promoting the Florida lifestyle
+- Product catalog w/ variants (size/color/stock)
+- Customer accounts + order tracking
+- Discount codes and sales logic
+- Admin dashboard: inventory, returns, fulfillment
+- Blog with lifestyle content
 
 ## 👩 Target Users
 
-The primary demographic is **women aged 25–45**, interested in Florida/country-inspired beachwear and lifestyle. These are users familiar with online shopping and social media trends.
+Women aged 25–45, interested in Florida/country-inspired fashion and beach life. Familiar with online shopping and mobile-first experiences.
 
 ## 📊 Data & APIs
 
-- **Products & Orders** will be managed in a PostgreSQL database I’ve modeled [here](https://dbdiagram.io/d/Sun-Kissed-and-Southern-67d1b7cf75d75cc844d787ff).
-- **Payment Transactions** will be handled securely using Cardknox's sandbox API.
-- **Shipping Tracking** will integrate KD100/KeyDelivery for real-time updates.
-- Optionally, a weather API will support dynamic blog content.
-
-> I will generate all necessary seed data for initial products and users. APIs will supplement transactional features.
+- PostgreSQL for all persistent data (users, orders, reviews, etc.)
+- Cardknox for secure sandbox payments
+- KD100 for shipping tracking (optional, can be manual entry)
+- Optional OpenWeatherMap to personalize blog content
 
 ## 🧩 App Functionality
 
-- User authentication & session management
-- Product catalog and filtering
-- Cart and checkout
-- Payment integration
-- Order confirmation and tracking
-- Admin dashboard (CRUD interface for products/orders)
-- Blog section with optional weather-based content
-
-## 🧭 User Flow
-
-1. User browses site (home → product detail pages)
-2. Adds items to cart → logs in or signs up
-3. Proceeds to checkout (Cardknox transaction)
-4. Views order confirmation and shipment status
-5. (Admin user) logs in to update product inventory, manage orders
-
-## 🛡️ Security & API Concerns
-
-- **Sensitive Info**: Cardknox API keys and user data will be protected with environment variables and secure sessions.
-- **API Challenges**: KD100 requires key registration and proper formatting; fallback for tracking will be logged.
-- **Frontend Auth**: Will use local storage for token persistence and axios for secured requests.
+- Auth: Register/login (JWT), localStorage token persistence
+- Product listings by category
+- Product variants (SKU, price, size, color, quantity)
+- Shopping cart (frontend/localStorage)
+- Checkout (Cardknox)
+- Coupon and promo code validation
+- Admin tools: CRUD for products, variants, users, returns
+- Order fulfillment (mark as fulfilled, shipped, returned)
+- Blog CMS
+- Review system (with moderation)
+- Favorites (wishlist-style)
 
 ## 💡 Features Beyond CRUD
 
-- Third-party payment and shipment API integrations
-- Admin panel for product/order management
-- Optional blog with weather-based lifestyle posts
-- Responsive and styled with modern UI libraries (e.g., TailwindCSS or Bootstrap)
+- Variant-level inventory management
+- Item-level order status: paid → fulfilled → shipped
+- Discount logic: sales + coupons (fixed/percent)
+- Product review moderation
+- Return and refund workflow w/ optional inventory restock
+- Tracking numbers assigned per item
+- Admin-facing analytics + inventory logs
+- Responsive modular UI styling with scoped CSS
+
+## 🧭 User Flow
+
+1. User browses → selects variant → adds to cart
+2. Cart saves in localStorage (guest or logged in)
+3. Login/signup before checkout if needed
+4. Cardknox payment processing → order placed
+5. User sees order confirmation + tracking
+6. Admins manage inventory, fulfill orders, review returns
+
+## 🛡️ Security & API Handling
+
+- Cardknox keys in `.env`
+- JWT tokens for auth with role-based access (admin, customer_service, etc.)
+- Optional tracking fallback if KD100 fails
+- Secure endpoint protection + role filtering
 
 ## 🚀 Stretch Goals
 
-- User profiles with order history
-- Product image uploader for admins
-- Search and filter improvements
-- Coupon/promo code system
+- Saved payment method (via Cardknox tokenization)
+- SMS/email order notifications
+- Image uploader for admin panel
+- Public-facing sales pages (like blog posts)
 
-## 🗺️ Timeline
+## 🗺️ Timeline (Adjusted)
 
-- **April 6–7 (Weekdays)**: Project setup, Flask API routes, DB setup, React structure
-- **April 8–9 (Weekend)**: Core functionality (user auth, products, cart)
-- **April 10–12**: API integrations (Cardknox + KD100), admin views
-- **April 13–14**: UI polishing, deploy backend/frontend
-- **April 15–16**: Buffer, testing, and final polish
+- **Week 1**: Backend setup (models, routes, DB), React/Vite scaffolding
+- **Week 2**: Auth, product logic, cart, checkout, admin dashboard
+- **Week 3**: Coupon/discount logic, fulfillment/returns, blog CMS
+- **Week 4**: UI polish, responsive styling, deployment, testing
 
 ## 📁 Database Schema
 
