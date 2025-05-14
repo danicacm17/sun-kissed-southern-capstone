@@ -1,3 +1,4 @@
+import React from "react";
 import { useFavorites } from "../context/FavoriteContext";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";

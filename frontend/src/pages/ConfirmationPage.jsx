@@ -1,3 +1,4 @@
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import "../styles/ConfirmationPage.css";
@@ -19,7 +20,7 @@ function ConfirmationPage() {
         <>
           <h2>Thank You for Your Order!</h2>
           <p className="subtext">We’ve received your order and it’s being processed.</p>
-          <p className="order-number">
+          <p className="order-number" data-testid="order-number">
             <span>Order #:</span> <strong>{order.order_number}</strong>
           </p>
 

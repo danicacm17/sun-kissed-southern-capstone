@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/api";
 import "../styles/Profile.css";
@@ -16,14 +16,12 @@ function Profile() {
 
   const [passwords, setPasswords] = useState({ new: "", confirm: "" });
   const [visibleFields, setVisibleFields] = useState({ current: false, new: false, confirm: false });
-
   const [orders, setOrders] = useState([]);
   const [expandedOrder, setExpandedOrder] = useState(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
   const perPage = 4;
-
   const [reviewModalItem, setReviewModalItem] = useState(null);
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewText, setReviewText] = useState("");
@@ -48,21 +46,10 @@ function Profile() {
     }
   };
 
-  const handleProfileChange = (field, value) => {
-    setProfile((p) => ({ ...p, [field]: value }));
-  };
-
-  const handlePasswordChange = (field, value) => {
-    setPasswords((p) => ({ ...p, [field]: value }));
-  };
-
-  const toggleExpand = (id) => {
-    setExpandedOrder(expandedOrder === id ? null : id);
-  };
-
-  const toggleVisibility = (field) => {
-    setVisibleFields((prev) => ({ ...prev, [field]: !prev[field] }));
-  };
+  const handleProfileChange = (field, value) => setProfile((p) => ({ ...p, [field]: value }));
+  const handlePasswordChange = (field, value) => setPasswords((p) => ({ ...p, [field]: value }));
+  const toggleExpand = (id) => setExpandedOrder(expandedOrder === id ? null : id);
+  const toggleVisibility = (field) => setVisibleFields((prev) => ({ ...prev, [field]: !prev[field] }));
 
   const handleProfileSave = async () => {
     setMessage("");
@@ -79,10 +66,7 @@ function Profile() {
     }
 
     try {
-      const res = await api.patch("/api/profile", {
-        ...profile,
-        password: passwords.new || undefined,
-      });
+      const res = await api.patch("/api/profile", { ...profile, password: passwords.new || undefined });
       setMessage(res.data.message);
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {
@@ -92,28 +76,18 @@ function Profile() {
   };
 
   const openReviewModal = (item) => {
-    const productId =
-      item.product_id ||
-      item.variant?.product_id ||
-      item.variant?.product?.id;
-
+    const productId = item.product_id || item.variant?.product_id || item.variant?.product?.id;
     if (!productId) {
       console.error("Unable to determine product_id from item:", item);
       setError("Unable to leave a review — product not found.");
       return;
     }
-
-    setReviewModalItem({
-      ...item,
-      product_id: productId,
-    });
+    setReviewModalItem({ ...item, product_id: productId });
     setReviewRating(5);
     setReviewText("");
   };
 
-  const closeReviewModal = () => {
-    setReviewModalItem(null);
-  };
+  const closeReviewModal = () => setReviewModalItem(null);
 
   const submitReview = async () => {
     try {
@@ -144,21 +118,21 @@ function Profile() {
   return (
     <div className="profile-page">
       <h2>My Profile</h2>
-
       {message && <p className="success-message">{message}</p>}
       {error && <p className="error-message">{error}</p>}
 
       <div className="profile-section">
         <h3>Personal Info</h3>
-        <label>First Name</label>
-        <input type="text" value={profile.first_name} onChange={(e) => handleProfileChange("first_name", e.target.value)} />
-        <label>Last Name</label>
-        <input type="text" value={profile.last_name} onChange={(e) => handleProfileChange("last_name", e.target.value)} />
-        <label>Email</label>
-        <input type="email" value={profile.email} onChange={(e) => handleProfileChange("email", e.target.value)} />
-        <label>Current Password (required to save)</label>
+        <label htmlFor="first-name">First Name</label>
+        <input id="first-name" type="text" value={profile.first_name} onChange={(e) => handleProfileChange("first_name", e.target.value)} />
+        <label htmlFor="last-name">Last Name</label>
+        <input id="last-name" type="text" value={profile.last_name} onChange={(e) => handleProfileChange("last_name", e.target.value)} />
+        <label htmlFor="email">Email</label>
+        <input id="email" type="email" value={profile.email} onChange={(e) => handleProfileChange("email", e.target.value)} />
+        <label htmlFor="current-password">Current Password (required to save)</label>
         <div className="password-field">
           <input
+            id="current-password"
             type={visibleFields.current ? "text" : "password"}
             value={profile.current_password}
             onChange={(e) => handleProfileChange("current_password", e.target.value)}
@@ -169,18 +143,20 @@ function Profile() {
 
       <div className="profile-section">
         <h3>Change Password</h3>
-        <label>New Password</label>
+        <label htmlFor="new-password">New Password</label>
         <div className="password-field">
           <input
+            id="new-password"
             type={visibleFields.new ? "text" : "password"}
             value={passwords.new}
             onChange={(e) => handlePasswordChange("new", e.target.value)}
           />
           <FontAwesomeIcon icon={visibleFields.new ? faEyeSlash : faEye} className="eye-icon" onClick={() => toggleVisibility("new")} />
         </div>
-        <label>Confirm New Password</label>
+        <label htmlFor="confirm-password">Confirm New Password</label>
         <div className="password-field">
           <input
+            id="confirm-password"
             type={visibleFields.confirm ? "text" : "password"}
             value={passwords.confirm}
             onChange={(e) => handlePasswordChange("confirm", e.target.value)}
@@ -209,14 +185,10 @@ function Profile() {
               {expandedOrder === order.id && (
                 <div className="order-details">
                   <p>
-                    <strong>Shipping:</strong> {order.shipping_address?.full_name}, {order.shipping_address?.street},{" "}
-                    {order.shipping_address?.city}, {order.shipping_address?.state} {order.shipping_address?.zip_code}
+                    <strong>Shipping:</strong> {order.shipping_address?.full_name}, {order.shipping_address?.street}, {order.shipping_address?.city}, {order.shipping_address?.state} {order.shipping_address?.zip_code}
                   </p>
                   <p>
-                    <strong>Billing:</strong>{" "}
-                    {order.billing_address?.full_name
-                      ? `${order.billing_address.full_name}, ${order.billing_address.street}, ${order.billing_address.city}, ${order.billing_address.state} ${order.billing_address.zip_code}`
-                      : "Same as shipping"}
+                    <strong>Billing:</strong> {order.billing_address?.full_name ? `${order.billing_address.full_name}, ${order.billing_address.street}, ${order.billing_address.city}, ${order.billing_address.state} ${order.billing_address.zip_code}` : "Same as shipping"}
                   </p>
 
                   <h4>Items:</h4>
@@ -224,10 +196,7 @@ function Profile() {
                     <div key={idx} className="order-item">
                       {item.product_name} ({item.variant.color}/{item.variant.size}) — Qty: {item.quantity} — ${item.price}
                       {item.status === "shipped" && !item.has_review && (
-                        <span
-                          className="leave-review-link"
-                          onClick={() => openReviewModal(item)}
-                        >
+                        <span className="leave-review-link" onClick={() => openReviewModal(item)}>
                           Leave a Review
                         </span>
                       )}
@@ -249,17 +218,25 @@ function Profile() {
       </div>
 
       {reviewModalItem && (
-        <div className="review-modal">
+        <div className="review-modal" data-testid="review-modal">
           <h4>Leave a Review for {reviewModalItem.product_name}</h4>
-          <label>Rating (1–5):</label>
-          <select value={reviewRating} onChange={(e) => setReviewRating(parseInt(e.target.value))}>
+          <label htmlFor="review-rating">Rating (1–5):</label>
+          <select
+            id="review-rating"
+            value={reviewRating}
+            onChange={(e) => setReviewRating(parseInt(e.target.value))}
+          >
             {[1, 2, 3, 4, 5].map((n) => (
               <option key={n} value={n}>{n}</option>
             ))}
           </select>
           <br />
-          <label>Comment:</label>
-          <textarea value={reviewText} onChange={(e) => setReviewText(e.target.value)} />
+          <label htmlFor="review-comment">Comment:</label>
+          <textarea
+            id="review-comment"
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+          />
           <br />
           <button onClick={submitReview}>Submit Review</button>
           <button onClick={closeReviewModal} style={{ background: "#999" }}>Cancel</button>

@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -43,7 +44,7 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <span onClick={() => setShowPassword((s) => !s)} className="eye-icon">
+          <span onClick={() => setShowPassword((s) => !s)} className="eye-icon" data-testid="toggle-password">
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>

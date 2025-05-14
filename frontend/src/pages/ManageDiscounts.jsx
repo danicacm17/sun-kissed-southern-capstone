@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import api from "../api/api";
 import "../styles/ManageDiscounts.css";
@@ -265,7 +266,10 @@ function ManageDiscounts() {
           {sales.map((s) => (
             <li key={s.id}>
               <strong>{s.name}</strong> — {s.discount_type} {s.discount_value} — Category:{" "}
-              {s.category || "None"} — Variants: {s.variant_ids.join(", ") || "All"}
+              {s.category || "None"} — Variants:{" "}
+              {Array.isArray(s.variant_ids) && s.variant_ids.length > 0
+                ? s.variant_ids.join(", ")
+                : "All"}
               <button onClick={() => handleDeleteSale(s.id)}>Delete</button>
             </li>
           ))}
