@@ -1,7 +1,12 @@
 import axios from "axios";
 
+// Use live backend on Netlify, local backend during dev
+const BASE_URL = import.meta.env.PROD
+  ? "https://sun-kissed-southern-backend.onrender.com"
+  : "http://localhost:5000";
+
 const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 

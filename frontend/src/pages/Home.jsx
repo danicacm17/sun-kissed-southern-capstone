@@ -51,7 +51,7 @@ function Home() {
       </div>
 
       <Link to="/category/tumblers">
-        <img src="/public/tumblers-sale.png" alt="Tumblers on Sale - 20% Off!" className="sale-banner" />
+        <img src="/tumblers-sale.png" alt="Tumblers on Sale - 20% Off!" className="sale-banner" />
       </Link>
 
       {/* Category Slideshow */}
