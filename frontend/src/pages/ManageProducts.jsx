@@ -226,7 +226,11 @@ function ManageProducts() {
                 <button onClick={() => handleDisable(p)}>{p.is_active ? "Disable" : "Enable"}</button>
               </div>
             </div>
-            {p.image_url && <img src={p.image_url} alt="product" className="main-product-image" />}
+
+            {p.image_url && (
+              <img src={p.image_url} alt="product" className="main-product-image" />
+            )}
+
           </div>
 
           <div className="variants-header">

@@ -5,7 +5,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// ✅ Add Authorization header automatically
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("authToken");
   if (token) {
@@ -14,13 +13,10 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const validateCoupon = (code, cart) =>
+export const validateCoupon = (code, cart, subtotal) =>
   api.post("/api/coupons/validate", {
     code,
-    cart: cart.map((item) => ({
-      product_variant_id: item.variantId,
-      quantity: item.quantity,
-    })),
+    subtotal,
   });
 
 export const fetchSales = () => api.get("/api/sales");

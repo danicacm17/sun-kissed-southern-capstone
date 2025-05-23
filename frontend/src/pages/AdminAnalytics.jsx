@@ -97,7 +97,7 @@ function AdminAnalytics() {
           ))}
         </ul>
         {analytics.orders_by_location.length > itemsPerPage && (
-          <div className="pagination">
+          <div className="admin-pagination">
             <button onClick={() => changePage("location", -1, analytics.orders_by_location.length)}>Prev</button>
             <button onClick={() => changePage("location", 1, analytics.orders_by_location.length)}>Next</button>
           </div>
@@ -113,7 +113,7 @@ function AdminAnalytics() {
           ))}
         </ul>
         {analytics.revenue_by_day.length > itemsPerPage && (
-          <div className="pagination">
+          <div className="admin-pagination">
             <button onClick={() => changePage("revenue", -1, analytics.revenue_by_day.length)}>Prev</button>
             <button onClick={() => changePage("revenue", 1, analytics.revenue_by_day.length)}>Next</button>
           </div>
@@ -144,7 +144,7 @@ function AdminAnalytics() {
           </div>
         ))}
         {lowStock.length > itemsPerPage && (
-          <div className="pagination">
+          <div className="admin-pagination">
             <button onClick={() => changePage("lowStock", -1, lowStock.length)}>Prev</button>
             <button onClick={() => changePage("lowStock", 1, lowStock.length)}>Next</button>
           </div>
@@ -166,7 +166,7 @@ function AdminAnalytics() {
               ))}
             </ul>
             {summarizedFulfillment.length > itemsPerPage && (
-              <div className="pagination">
+              <div className="admin-pagination">
                 <button onClick={() => changePage("fulfillment", -1, summarizedFulfillment.length)}>Prev</button>
                 <button onClick={() => changePage("fulfillment", 1, summarizedFulfillment.length)}>Next</button>
               </div>

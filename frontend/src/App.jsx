@@ -22,6 +22,7 @@ import FAQs from "./pages/FAQ";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import ContactForm from "./pages/ContactForm";
+import ForgotPassword from "./pages/ForgotPassword";
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/contact" element={<ContactForm />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
       <Footer />
     </Router>

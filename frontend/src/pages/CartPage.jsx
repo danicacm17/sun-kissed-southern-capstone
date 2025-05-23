@@ -25,84 +25,86 @@ function CartPage() {
   };
 
   return (
-    <div className="cart-page">
-      <h2>Your Shopping Cart</h2>
+    <div className="cart-wrapper">
+      <div className="cart-page">
+        <h2>Your Shopping Cart</h2>
 
-      {cart.length === 0 ? (
-        <div className="empty-cart">
-          <p>Your cart is empty.</p>
-          <img src="/empty-cart.png" alt="Empty cart" className="empty-cart-img" />
-          <button onClick={() => navigate("/")}>Start Shopping</button>
-        </div>
-      ) : (
-        <>
-          <ul className="cart-items">
-            {cart.map((item, index) => {
-              const discountedPrice = getDiscountedPrice(item.variant || { price: item.price });
-              const originalPrice = item.originalPrice || item.price;
+        {cart.length === 0 ? (
+          <div className="empty-cart">
+            <p>Your cart is empty.</p>
+            <img src="/empty-cart.png" alt="Empty cart" className="empty-cart-img" />
+            <button onClick={() => navigate("/")}>Start Shopping</button>
+          </div>
+        ) : (
+          <>
+            <ul className="cart-items">
+              {cart.map((item, index) => {
+                const discountedPrice = getDiscountedPrice(item.variant || { price: item.price });
+                const originalPrice = item.originalPrice || item.price;
 
-              return (
-                <li className="cart-item" key={`${item.productId}-${item.variantId}-${index}`}>
-                  <img src={item.image || "/placeholder.jpg"} alt={item.name} />
-                  <div className="item-details">
-                    <strong>{item.name}</strong>
-                    <p>{item.color} / {item.size}</p>
-                    <p>
-                      {discountedPrice < originalPrice ? (
-                        <>
-                          <span className="price-discounted">${discountedPrice.toFixed(2)}</span>{" "}
-                          <span className="price-original">${originalPrice.toFixed(2)}</span>
-                        </>
-                      ) : (
-                        <>${originalPrice.toFixed(2)} each</>
-                      )}
-                    </p>
+                return (
+                  <li className="cart-item" key={`${item.productId}-${item.variantId}-${index}`}>
+                    <img src={item.image || "/placeholder.jpg"} alt={item.name} />
+                    <div className="item-details">
+                      <strong>{item.name}</strong>
+                      <p>{item.color} / {item.size}</p>
+                      <p>
+                        {discountedPrice < originalPrice ? (
+                          <>
+                            <span className="price-discounted">${discountedPrice.toFixed(2)}</span>{" "}
+                            <span className="price-original">${originalPrice.toFixed(2)}</span>
+                          </>
+                        ) : (
+                          <>${originalPrice.toFixed(2)} each</>
+                        )}
+                      </p>
 
-                    <div className="cart-controls">
-                      <label>
-                        Qty:
-                        <select
-                          value={item.quantity}
-                          onChange={(e) =>
-                            updateQuantity(item.productId, item.variantId, parseInt(e.target.value))
-                          }
+                      <div className="cart-controls">
+                        <label>
+                          Qty:
+                          <select
+                            value={item.quantity}
+                            onChange={(e) =>
+                              updateQuantity(item.productId, item.variantId, parseInt(e.target.value))
+                            }
+                          >
+                            {Array.from({ length: 10 }).map((_, i) => (
+                              <option key={i} value={i + 1}>{i + 1}</option>
+                            ))}
+                          </select>
+                        </label>
+                        <button
+                          className="remove-btn"
+                          onClick={() => removeFromCart(item.productId, item.variantId)}
                         >
-                          {Array.from({ length: 10 }).map((_, i) => (
-                            <option key={i} value={i + 1}>{i + 1}</option>
-                          ))}
-                        </select>
-                      </label>
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeFromCart(item.productId, item.variantId)}
-                      >
-                        Remove
-                      </button>
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
 
-          <div className="cart-summary">
-            <p><strong>Total:</strong> ${total.toFixed(2)}</p>
-            <button className="checkout-btn" onClick={handleCheckout}>Proceed to Checkout</button>
-          </div>
-        </>
-      )}
+            <div className="cart-summary">
+              <p><strong>Total:</strong> ${total.toFixed(2)}</p>
+              <button className="checkout-btn" onClick={handleCheckout}>Proceed to Checkout</button>
+            </div>
+          </>
+        )}
 
-      {showLoginPrompt && (
-        <div className="modal-backdrop">
-          <div className="modal">
-            <h3>Login Required</h3>
-            <p>You need to be logged in to proceed to checkout.</p>
-            <button onClick={() => navigate("/login")}>Login</button>
-            <button onClick={() => navigate("/signup")}>Sign Up</button>
-            <button className="close-btn" onClick={() => setShowLoginPrompt(false)}>Cancel</button>
+        {showLoginPrompt && (
+          <div className="modal-backdrop">
+            <div className="modal">
+              <h3>Login Required</h3>
+              <p>You need to be logged in to proceed to checkout.</p>
+              <button onClick={() => navigate("/login")}>Login</button>
+              <button onClick={() => navigate("/signup")}>Sign Up</button>
+              <button className="close-btn" onClick={() => setShowLoginPrompt(false)}>Cancel</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

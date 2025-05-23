@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import "../styles/ConfirmationPage.css";
 
 function ConfirmationPage() {
@@ -13,6 +12,10 @@ function ConfirmationPage() {
       setTimeout(() => navigate("/"), 5000);
     }
   }, [order, navigate]);
+
+  const subtotal = order?.subtotal ?? 0;
+  const discount = order?.discount ?? 0;
+  const total = order?.total ?? 0;
 
   return (
     <div className="confirmation-page">
@@ -32,6 +35,7 @@ function ConfirmationPage() {
               <span>Qty</span>
               <span>Price</span>
             </div>
+
             {order.items?.map((item, idx) => (
               <div key={idx} className="order-row">
                 <span>{item.name}</span>
@@ -40,10 +44,25 @@ function ConfirmationPage() {
                 <span>${(item.price * item.quantity).toFixed(2)}</span>
               </div>
             ))}
-            <div className="order-total">
-              <span>Total:</span>
-              <span>${order.total?.toFixed(2)}</span>
+
+            {/* 💡 totals-section wrapper added */}
+            <div className="totals-section">
+              <div className="order-subtotal">
+                <span>Subtotal:</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              {discount > 0 && (
+                <div className="order-discount">
+                  <span>Coupon Discount:</span>
+                  <span>-${discount.toFixed(2)}</span>
+                </div>
+              )}
+              <div className="order-total">
+                <span>Total:</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
             </div>
+
             <button className="continue-btn" onClick={() => navigate("/")}>
               Continue Shopping
             </button>

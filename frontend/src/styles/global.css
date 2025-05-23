@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Beth+Ellen&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 :root {
-  --primary-color: #d8c40d;        /* Yellow */
-  --secondary-color: #0f9098;      /* Teal */
+  --primary-color: #d8c40d;
+  --secondary-color: #0f9098;
   --dark-color: #4e4e4e;
   --background-color: #ffffff;
   --text-color: #4e4e4e;
 
   --heading-font: 'Inter', serif;
   --body-font: 'Inter', sans-serif;
+  --accent-heading-font: 'Beth Ellen', cursive;
 }
+
 
 /* Reset + Base */
 * {
@@ -205,6 +209,7 @@ form button:hover {
 .contact-form textarea {
   width: 100%;
   padding: 0.8rem;
+  margin-left: 0;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;

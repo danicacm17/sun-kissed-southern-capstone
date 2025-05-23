@@ -11,18 +11,35 @@ function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [hidden, setHidden] = useState(false);
+  const [prevScroll, setPrevScroll] = useState(window.scrollY);
 
   useEffect(() => {
     setDropdownOpen(null);
     setMenuOpen(false);
   }, [location]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > prevScroll && currentScroll > 60) {
+        setHidden(true); // scrolling down
+      } else {
+        setHidden(false); // scrolling up
+      }
+      setPrevScroll(currentScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScroll]);
+
   const handleLogout = () => {
     logout(); // No need to call navigate — handled in AuthContext
   };
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${hidden ? "hidden" : ""}`}>
       <div className="navbar-left">
         <Link to="/">
           <img src="/SK&S Large Logo.svg" alt="Sun-Kissed & Southern" className="logo" />

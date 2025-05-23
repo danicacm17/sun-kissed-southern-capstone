@@ -42,12 +42,10 @@ def seed_users():
     roles = {r.name: r for r in Role.query.all()}
     users = [
         User(email="admin@sks.com", role_id=roles["admin"].id, first_name="Admin", last_name="User"),
-        User(email="demo@sks.com", role_id=roles["user"].id, first_name="Demo", last_name="User"),
         User(email="support@sks.com", role_id=roles["customer_service"].id, first_name="Support", last_name="Agent"),
         User(email="fulfill@sks.com", role_id=roles["fulfillment"].id, first_name="Fulfill", last_name="Team"),
-        User(email="demo2@sks.com", role_id=roles["user"].id, first_name="Demo", last_name="Two")
     ]
-    passwords = ["admin123", "password", "support123", "shipit123", "password"]
+    passwords = ["Admin123", "Support123", "Shipit123"]
     for u, pw in zip(users, passwords):
         u.set_password(pw)
     db.session.add_all(users)
@@ -250,11 +248,11 @@ def run_seed(mode="dev"):
         clear_db()
         seed_roles()
         seed_users()
-        seed_products()
-        seed_variants_and_inventory()
+        # seed_products()
+        # seed_variants_and_inventory()
         # seed_orders()
         # seed_reviews()
-        seed_blog()
+        # seed_blog()
         # seed_returns()
         # seed_additional_order()
         print(f"✅ Seeding complete in `{mode}` mode.")

@@ -60,13 +60,28 @@ function Profile() {
       return;
     }
 
-    if (passwords.new && passwords.new !== passwords.confirm) {
-      setError("New passwords do not match.");
-      return;
+    if (passwords.new) {
+      const isValidPassword =
+        passwords.new.length >= 7 &&
+        /[A-Z]/.test(passwords.new) &&
+        /\d/.test(passwords.new);
+
+      if (!isValidPassword) {
+        setError("New password must be at least 7 characters and include one uppercase letter and one number.");
+        return;
+      }
+
+      if (passwords.new !== passwords.confirm) {
+        setError("New passwords do not match.");
+        return;
+      }
     }
 
     try {
-      const res = await api.patch("/api/profile", { ...profile, password: passwords.new || undefined });
+      const res = await api.patch("/api/profile", {
+        ...profile,
+        password: passwords.new || undefined,
+      });
       setMessage(res.data.message);
       setTimeout(() => setMessage(""), 3000);
     } catch (err) {

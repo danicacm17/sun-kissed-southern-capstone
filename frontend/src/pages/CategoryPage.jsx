@@ -133,23 +133,20 @@ function CategoryPage() {
           </div>
 
           {totalPages > 1 && (
-            <div className="pagination">
-              <button
-                disabled={page <= 1}
-                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              >
-                ← Prev
-              </button>
-              <span>
-                Page {page} of {totalPages}
-              </span>
-              <button
-                disabled={page >= totalPages}
-                onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-              >
-                Next →
-              </button>
-            </div>
+            <div className="pagination-wrapper">
+            {[...Array(totalPages)].map((_, i) => {
+              const pageNum = i + 1;
+              return (
+                <button
+                  key={pageNum}
+                  className={`pagination-number ${pageNum === page ? "active" : ""}`}
+                  onClick={() => setPage(pageNum)}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
           )}
         </>
       )}

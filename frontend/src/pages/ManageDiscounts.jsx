@@ -43,8 +43,12 @@ function ManageDiscounts() {
   }, []);
 
   const fetchCoupons = async () => {
-    const res = await api.get("/api/admin/discounts/coupons");
-    setCoupons(res.data);
+    try {
+      const res = await api.get("/api/admin/discounts/coupons");
+      setCoupons(res.data);
+    } catch (err) {
+      console.error("Failed to load coupons", err);
+    }
   };
 
   const fetchSales = async () => {
@@ -180,13 +184,16 @@ function ManageDiscounts() {
               onChange={(e) => setCouponForm({ ...couponForm, max_uses: e.target.value })}
             />
           </label>
-          <button type="submit">Create Coupon</button>
+          <div className="form-button-wrapper">
+            <button type="submit">Create Coupon</button>
+          </div>
         </form>
 
         <ul className="discount-list">
           {coupons.map((c) => (
             <li key={c.id}>
-              <strong>{c.code}</strong> — {c.type} {c.amount} — Expires: {c.expires_at || "N/A"} — Uses: {c.times_used}/{c.max_uses}
+              <strong className="discount-name">{c.code}</strong> — {c.type === "percent" ? `${c.amount}%` : `$${c.amount}`} — 
+              Expires: {c.expires_at || "N/A"} — Used: {c.times_used} of {c.max_uses}
               <button onClick={() => handleDeleteCoupon(c.id)}>Delete</button>
             </li>
           ))}
@@ -259,17 +266,24 @@ function ManageDiscounts() {
               onChange={(e) => setSaleForm({ ...saleForm, variant_skus: e.target.value })}
             />
           </label>
-          <button type="submit">Create Sale</button>
+          <div className="form-button-wrapper">
+            <button type="submit">Create Sale</button>
+          </div>  
         </form>
 
         <ul className="discount-list">
           {sales.map((s) => (
             <li key={s.id}>
-              <strong>{s.name}</strong> — {s.discount_type} {s.discount_value} — Category:{" "}
-              {s.category || "None"} — Variants:{" "}
-              {Array.isArray(s.variant_ids) && s.variant_ids.length > 0
-                ? s.variant_ids.join(", ")
+              <strong className="discount-name">{s.name}</strong> —{" "}
+              {s.discount_type === "percent"
+                ? `${s.discount_value}%`
+                : `$${s.discount_value}`}
+              {" — "}Category: {s.category || "None"}
+              {" — "}Variants:{" "}
+              {Array.isArray(s.variant_skus) && s.variant_skus.length > 0
+                ? s.variant_skus.join(", ")
                 : "All"}
+              {" — "}Expires: {s.end_date ? new Date(s.end_date).toLocaleString() : "N/A"}
               <button onClick={() => handleDeleteSale(s.id)}>Delete</button>
             </li>
           ))}

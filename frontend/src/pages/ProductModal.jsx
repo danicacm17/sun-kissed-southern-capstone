@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useCart } from "../context/CartContext";
 import { useDiscountUtils } from "../components/discountUtils";
 import "../styles/ProductModal.css";
@@ -6,6 +6,7 @@ import "../styles/ProductModal.css";
 function ProductModal({ product, onClose }) {
   const { addToCart } = useCart();
   const { getDiscountedPrice } = useDiscountUtils();
+
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedVariant, setSelectedVariant] = useState(null);
@@ -16,9 +17,9 @@ function ProductModal({ product, onClose }) {
   const [reviews, setReviews] = useState([]);
   const reviewsPerPage = 3;
 
+  const imageRef = useRef(null);
   const activeVariants = product.variants?.filter((v) => v.is_active) || [];
 
-  // Fetch approved reviews for this product
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -29,7 +30,6 @@ function ProductModal({ product, onClose }) {
         console.error("Error loading reviews", err);
       }
     };
-
     fetchReviews();
   }, [product.id]);
 
@@ -81,6 +81,21 @@ function ProductModal({ product, onClose }) {
     setTimeout(() => setShowToast(false), 3000);
   };
 
+  const handleMouseMove = (e) => {
+    const img = imageRef.current;
+    const rect = img.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    img.style.transformOrigin = `${x}% ${y}%`;
+    img.style.transform = "scale(2)";
+  };
+
+  const resetZoom = () => {
+    const img = imageRef.current;
+    img.style.transformOrigin = "center center";
+    img.style.transform = "scale(1)";
+  };
+
   const colors = [...new Set(activeVariants.map((v) => v.color))];
   const sizes = [...new Set(activeVariants.filter((v) => v.color === selectedColor).map((v) => v.size))];
 
@@ -95,15 +110,22 @@ function ProductModal({ product, onClose }) {
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-content wide" onClick={(e) => e.stopPropagation()}>
-        <button className="close-btn" onClick={onClose}>×</button>
+        <button className="modal-close-btn" onClick={onClose}>×</button>
 
         <div className="modal-body">
           <div className="modal-left">
-            <img
-              src={mainImage || product.image_url || "/placeholder.jpg"}
-              alt={product.name}
-              className="main-product-image"
-            />
+            <div
+              className="image-zoom-container"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={resetZoom}
+            >
+              <img
+                ref={imageRef}
+                src={mainImage || "/placeholder.jpg"}
+                alt={product.name}
+                className="main-product-modal-image"
+              />
+            </div>
 
             <div className="modal-thumbs">
               {product.image_url && (
@@ -114,8 +136,8 @@ function ProductModal({ product, onClose }) {
                   onClick={() => setMainImage(product.image_url)}
                 />
               )}
-              {activeVariants.map((v, i) => (
-                v.image_url && (
+              {activeVariants.map((v, i) =>
+                v.image_url ? (
                   <img
                     key={i}
                     src={v.image_url}
@@ -123,8 +145,8 @@ function ProductModal({ product, onClose }) {
                     className={`thumbnail ${mainImage === v.image_url ? "active" : ""}`}
                     onClick={() => setMainImage(v.image_url)}
                   />
-                )
-              ))}
+                ) : null
+              )}
             </div>
           </div>
 

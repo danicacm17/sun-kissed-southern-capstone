@@ -49,12 +49,33 @@
   margin-bottom: 0.5rem;
 }
 
+.order-row + .order-row {
+  border-top: 1px solid #eee;
+}
+
+.order-summary .totals-section {
+  margin-top: 1.5rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+
+.order-subtotal,
+.order-discount,
 .order-total {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.5rem;
+  font-size: 1rem;
+  margin: 0.3rem 0;
+}
+
+.order-discount {
+  color: #d32f2f;
+}
+
+.order-total {
   font-weight: bold;
   font-size: 1.1rem;
+  margin-top: 0.8rem;
 }
 
 .continue-btn {

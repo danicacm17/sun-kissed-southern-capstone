@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateCoupon, placeOrder } from "../api/api";
 import { useAuth } from "../context/AuthContext";
@@ -8,7 +7,7 @@ import "../styles/CheckoutPage.css";
 
 function CheckoutPage() {
   const navigate = useNavigate();
-  const { cart, clearCart, getDiscountedPrice } = useCart();
+  const { cart, clearCart } = useCart();
   const { user } = useAuth();
 
   const [couponCode, setCouponCode] = useState("");
@@ -48,27 +47,26 @@ function CheckoutPage() {
     }
   }, [user]);
 
+  const getEffectivePrice = (variant, fallbackPrice) => {
+    if (variant?.discount_price != null && !isNaN(variant.discount_price)) {
+      return parseFloat(variant.discount_price);
+    }
+    return parseFloat(variant?.price ?? fallbackPrice);
+  };
+
   const subtotal = cart.reduce(
     (sum, item) =>
-      sum + getDiscountedPrice(item.variant || { price: item.price }) * item.quantity,
+      sum + getEffectivePrice(item.variant, item.price) * item.quantity,
     0
   );
 
-  const discountValue = Number(coupon?.discount ?? 0);
-  let discount = 0;
-  if (!isNaN(discountValue)) {
-    discount =
-      coupon?.type?.toLowerCase() === "percent"
-        ? parseFloat(((subtotal * discountValue) / 100).toFixed(2))
-        : discountValue;
-  }
-
+  const discount = coupon ? Number(coupon.discount || 0) : 0;
   const total = (subtotal - discount > 0 ? subtotal - discount : 0).toFixed(2);
 
   const handleApplyCoupon = async () => {
     try {
-      const result = await validateCoupon(couponCode, cart);
-      const data = result.data; // ✅ Correct: extract actual coupon
+      const result = await validateCoupon(couponCode, cart, subtotal.toFixed(2));
+      const data = result.data;
       const minOrderValue = data.min_order_value || 0;
 
       if (subtotal < minOrderValue) {
@@ -120,7 +118,7 @@ function CheckoutPage() {
       cart: cart.map((item) => ({
         product_variant_id: item.variantId,
         quantity: item.quantity,
-        unit_price: getDiscountedPrice(item.variant || { price: item.price }),
+        unit_price: getEffectivePrice(item.variant, item.price),
       })),
       payment_info: form.payment,
       shipping_address: form.shipping,
@@ -139,6 +137,8 @@ function CheckoutPage() {
           order: {
             order_number: res.order_number,
             items: cart,
+            subtotal: parseFloat(subtotal.toFixed(2)),
+            discount: parseFloat(discount.toFixed(2)),
             total: parseFloat(total),
           },
         },
@@ -150,113 +150,121 @@ function CheckoutPage() {
   };
 
   return (
-    <div className="checkout-page">
-      <h2>Checkout</h2>
+    <div className="checkout-wrapper">
+      <div className="checkout-page">
+        <h2>Checkout</h2>
 
-      {success && <p className="success-message">{success}</p>}
-      {error && <p className="error-message">{error}</p>}
+        {success && <p className="success-message">{success}</p>}
+        {error && <p className="error-message">{error}</p>}
 
-      <div className="checkout-cart-preview">
-        <h4>Your Items</h4>
-        {cart.map((item, idx) => {
-          const price = getDiscountedPrice(item.variant || { price: item.price });
-          return (
-            <div key={idx} className="checkout-cart-item">
-              <span>{item.name}</span>
-              <span>{item.color} / {item.size}</span>
-              <span>Qty: {item.quantity}</span>
-              <span>${(price * item.quantity).toFixed(2)}</span>
-            </div>
-          );
-        })}
-        <p><a href="/cart">Edit Cart</a></p>
-      </div>
+        <div className="checkout-cart-preview">
+          <h4>Your Items</h4>
+          <div className="checkout-cart-header">
+            <span>Product</span>
+            <span>Variant</span>
+            <span>Qty</span>
+            <span>Price</span>
+          </div>
+          {cart.map((item, idx) => {
+            const price = getEffectivePrice(item.variant, item.price);
+            return (
+              <div key={idx} className="checkout-cart-item">
+                <span>{item.name}</span>
+                <span>{item.color} / {item.size}</span>
+                <span>{item.quantity}</span>
+                <span>${(price * item.quantity).toFixed(2)}</span>
+              </div>
+            );
+          })}
+          <p><a href="/cart">Edit Cart</a></p>
+        </div>
 
-      <div className="checkout-section">
-        <h4>Shipping Address</h4>
-        {["full_name", "street", "city", "state", "zip_code"].map((field) => (
-          <input
-            key={field}
-            placeholder={field.replace("_", " ")}
-            value={form.shipping[field]}
-            onChange={(e) => handleChange("shipping", field, e.target.value)}
-          />
-        ))}
-      </div>
-
-      <div className="checkout-section">
-        <label>
-          <input
-            type="checkbox"
-            checked={form.billingSame}
-            onChange={(e) => handleChange("billingSame", null, e.target.checked)}
-          />{" "}
-          Billing same as shipping
-        </label>
-      </div>
-
-      {!form.billingSame && (
         <div className="checkout-section">
-          <h4>Billing Address</h4>
+          <h4>Shipping Address</h4>
           {["full_name", "street", "city", "state", "zip_code"].map((field) => (
             <input
               key={field}
               placeholder={field.replace("_", " ")}
-              value={form.billing[field]}
-              onChange={(e) => handleChange("billing", field, e.target.value)}
+              value={form.shipping[field]}
+              onChange={(e) => handleChange("shipping", field, e.target.value)}
             />
           ))}
         </div>
-      )}
 
-      <div className="checkout-section">
-        <h4>Payment</h4>
-        <input
-          placeholder="Card Number"
-          value={form.payment.card_number}
-          onChange={(e) => handleChange("payment", "card_number", e.target.value)}
-        />
-        <input
-          placeholder="Expiration (MM/YY)"
-          value={form.payment.expiration_date}
-          onChange={(e) => handleChange("payment", "expiration_date", e.target.value)}
-        />
-        <input
-          placeholder="CVV"
-          value={form.payment.cvv}
-          onChange={(e) => handleChange("payment", "cvv", e.target.value)}
-        />
-      </div>
+        <div className="checkout-section">
+          <label>
+            <input
+              type="checkbox"
+              checked={form.billingSame}
+              onChange={(e) => handleChange("billingSame", null, e.target.checked)}
+            />{" "}
+            Billing same as shipping
+          </label>
+        </div>
 
-      <div className="checkout-section">
-        <h4>Coupon</h4>
-        <input
-          placeholder="Enter coupon"
-          value={couponCode}
-          onChange={(e) => setCouponCode(e.target.value)}
-        />
-        <button onClick={handleApplyCoupon}>Apply</button>
-        {coupon && (
-          <p className="coupon-message success">
-            ✓ Coupon applied: {coupon.code} (
-            {coupon.type?.toLowerCase() === "percent"
-              ? `${coupon.discount}% off`
-              : `$${Number(coupon.discount).toFixed(2)} off`}
-            )
-          </p>
+        {!form.billingSame && (
+          <div className="checkout-section">
+            <h4>Billing Address</h4>
+            {["full_name", "street", "city", "state", "zip_code"].map((field) => (
+              <input
+                key={field}
+                placeholder={field.replace("_", " ")}
+                value={form.billing[field]}
+                onChange={(e) => handleChange("billing", field, e.target.value)}
+              />
+            ))}
+          </div>
         )}
-        {!coupon && error && <p className="coupon-message error">{error}</p>}
-      </div>
 
-      <div className="checkout-summary">
-        <h4>Summary</h4>
-        <p>Subtotal: <strong>${subtotal.toFixed(2)}</strong></p>
-        {coupon && <p>Discount: <strong>-${discount.toFixed(2)}</strong></p>}
-        <p className="total">Total: <strong>${total}</strong></p>
-      </div>
+        <div className="checkout-section">
+          <h4>Payment</h4>
+          <input
+            placeholder="Card Number"
+            value={form.payment.card_number}
+            onChange={(e) => handleChange("payment", "card_number", e.target.value)}
+          />
+          <input
+            placeholder="Expiration (MM/YY)"
+            value={form.payment.expiration_date}
+            onChange={(e) => handleChange("payment", "expiration_date", e.target.value)}
+          />
+          <input
+            placeholder="CVV"
+            value={form.payment.cvv}
+            onChange={(e) => handleChange("payment", "cvv", e.target.value)}
+          />
+        </div>
 
-      {!success && <button onClick={handleCheckout}>Place Order</button>}
-    </div>
+        <div className="checkout-section">
+          <h4>Coupon</h4>
+          <input
+            placeholder="Enter coupon"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value)}
+          />
+          <button onClick={handleApplyCoupon}>Apply</button>
+          {coupon && (
+            <p className="coupon-message success">
+              ✓ Coupon applied: {coupon.code} (
+              {coupon.type?.toLowerCase() === "percent"
+                ? `${coupon.original_amount}% off`
+                : `$${Number(coupon.discount).toFixed(2)} off`}
+              )
+            </p>
+          )}
+          {!coupon && error && <p className="coupon-message error">{error}</p>}
+        </div>
+
+        <div className="checkout-summary">
+          <h4>Summary</h4>
+          <p>Subtotal: <strong>${subtotal.toFixed(2)}</strong></p>
+          {coupon && <p>Discount: <strong>-${discount.toFixed(2)}</strong></p>}
+          <p className="total">Total: <strong>${total}</strong></p>
+        </div>
+
+        {!success && <button onClick={handleCheckout}>Place Order</button>}
+      </div>
+    </div>      
   );
 }
 

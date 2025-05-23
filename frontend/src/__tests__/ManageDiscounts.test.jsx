@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, within } from "@testing-library/react";
 import ManageDiscounts from "../pages/ManageDiscounts";
 import api from "../api/api";
 
@@ -38,13 +38,17 @@ describe("ManageDiscounts", () => {
     api.get.mockImplementation((url) => {
       if (url.includes("coupons")) return Promise.resolve({ data: mockCoupons });
       if (url.includes("sales")) return Promise.resolve({ data: mockSales });
+      return Promise.resolve({ data: [] });
     });
 
     render(<ManageDiscounts />);
 
-    expect(screen.getByText("Manage Discounts")).toBeInTheDocument();
+    // Coupon
     expect(await screen.findByText("SAVE10")).toBeInTheDocument();
-    expect(screen.getByText("Summer Sale")).toBeInTheDocument();
+
+    // Sale name inside a <strong>, then verify parent <li>
+    const saleName = await screen.findByText("Summer Sale", { selector: "strong" });
+    expect(saleName).toBeInTheDocument();
   });
 
   it("creates a coupon", async () => {
@@ -125,13 +129,15 @@ describe("ManageDiscounts", () => {
 
     render(<ManageDiscounts />);
 
-    await screen.findByText("Summer Sale");
+    const saleName = await screen.findByText("Summer Sale", { selector: "strong" });
+    const saleListItem = saleName.closest("li");
+    expect(saleListItem).toBeInTheDocument();
 
-    const deleteButtons = screen.getAllByText("Delete");
-    fireEvent.click(deleteButtons[1]); // delete the second (sale)
+    const deleteButton = within(saleListItem).getByText("Delete");
+    fireEvent.click(deleteButton);
 
     await waitFor(() => {
-        expect(api.delete).toHaveBeenCalledWith("/api/admin/discounts/sales/1");
+      expect(api.delete).toHaveBeenCalledWith("/api/admin/discounts/sales/1");
     });
   });
 });

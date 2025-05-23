@@ -8,6 +8,8 @@ from app.models.product_variant import ProductVariant
 from app.utils.auth import role_required
 from datetime import datetime
 from pytz import timezone
+from decimal import Decimal, ROUND_HALF_UP
+
 
 eastern = timezone("US/Eastern")
 
@@ -70,59 +72,42 @@ def delete_coupon(id):
 @discount_bp.route("/api/coupons/validate", methods=["POST"])
 def validate_coupon():
     from decimal import Decimal, ROUND_HALF_UP
-    from sqlalchemy.orm import joinedload
 
     data = request.get_json()
-    code = data.get("code", "").strip().upper()
-    cart = data.get("cart", [])
+    code = data.get("code")
+    subtotal = Decimal(str(data.get("subtotal", "0.00")))
 
-    if not code or not cart:
-        return jsonify({"error": "Missing code or cart"}), 400
+    if not code or subtotal <= 0:
+        return jsonify({"error": "Missing code or subtotal"}), 400
 
     coupon = Coupon.query.filter_by(code=code, is_active=True).first()
     if not coupon:
         return jsonify({"error": "Invalid or expired coupon"}), 404
 
-    subtotal = Decimal("0.00")
-
-    for item in cart:
-        variant_id = item.get("product_variant_id") or item.get("variantId")
-        quantity = item.get("quantity", 1)
-
-        variant = (
-            ProductVariant.query
-            .options(joinedload(ProductVariant.product))
-            .get(variant_id)
-        )
-        if not variant:
-            continue
-
-        subtotal += variant.price * quantity
-
-    # Minimum order check
-    if coupon.min_order_value and subtotal < coupon.min_order_value:
+    # Check minimum order value
+    if coupon.min_order_value and subtotal < Decimal(coupon.min_order_value):
         return jsonify({
             "error": "Minimum order not met",
             "min_order_value": float(coupon.min_order_value)
         }), 400
 
-    # Calculate discount
+    # Calculate discount from subtotal directly
     if coupon.type == "percent":
         discount = (subtotal * Decimal(coupon.amount) / Decimal("100")).quantize(
-            Decimal(".01"), rounding=ROUND_HALF_UP)
+            Decimal(".01"), rounding=ROUND_HALF_UP
+        )
     else:
         discount = Decimal(coupon.amount)
 
-    discount = min(discount, subtotal)  # prevent negative totals
+    discount = min(discount, subtotal)
 
     return jsonify({
         "code": coupon.code,
         "type": coupon.type,
-        "discount": float(discount),  # ✅ renamed from "amount"
+        "discount": float(discount),
         "original_amount": float(coupon.amount),
         "min_order_value": float(coupon.min_order_value or 0)
     }), 200
-
 
 # === SALES ===
 

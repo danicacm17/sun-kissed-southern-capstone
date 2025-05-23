@@ -1,9 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "../styles/LoginForm.css";
+import "../styles/AuthForm.css";
 
 function LoginForm() {
   const { login } = useAuth();
@@ -19,7 +18,7 @@ function LoginForm() {
     try {
       await login(email, password);
       navigate("/");
-    } catch (err) {
+    } catch {
       setError("Invalid email or password");
     }
   };
@@ -30,6 +29,7 @@ function LoginForm() {
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
+          className="input-field"
           type="email"
           placeholder="Email"
           value={email}
@@ -38,18 +38,23 @@ function LoginForm() {
         />
         <div className="password-wrapper">
           <input
+            className="input-field"
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <span onClick={() => setShowPassword((s) => !s)} className="eye-icon" data-testid="toggle-password">
+          <span className="eye-icon" onClick={() => setShowPassword((s) => !s)}>
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
         <button type="submit">Log In</button>
       </form>
+
+        <p className="forgot-link">
+          <a href="/forgot-password">Forgot your password?</a>
+      </p>
     </div>
   );
 }

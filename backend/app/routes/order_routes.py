@@ -44,6 +44,7 @@ def infer_order_status(order):
 @jwt_required()
 def checkout():
     """Handle the checkout process for a user."""
+    from decimal import Decimal
     data = request.get_json()
     identity = get_jwt_identity()
     user_id = identity["id"] if isinstance(identity, dict) else identity
@@ -63,7 +64,6 @@ def checkout():
             return jsonify({"error": f"Missing {field}"}), 400
 
     coupon = Coupon.query.filter_by(code=coupon_code, is_active=True).first() if coupon_code else None
-    sales = Sale.query.filter_by(is_active=True).options(joinedload(Sale.variants)).all()
 
     order_items = []
     total = Decimal("0.00")
@@ -75,25 +75,12 @@ def checkout():
 
         quantity = item.get("quantity", 1)
 
-        # Ensure enough stock
+        # Ensure stock availability
         if variant.quantity < quantity:
             return jsonify({"error": f"Not enough stock for {variant.sku}"}), 400
 
-        # Use price passed in from frontend (already discounted)
+        # Use price provided from frontend (already discounted by sales)
         client_price = Decimal(str(item.get("unit_price", variant.price)))
-
-        # Optional: verify price here to prevent abuse
-        # server_price = variant.price
-        # for sale in sales:
-        #     if variant in sale.variants or (sale.category and getattr(variant.product, "category", None) == sale.category):
-        #         if sale.discount_type == "percent":
-        #             server_price *= (Decimal("1") - Decimal(sale.discount_value) / Decimal("100"))
-        #         elif sale.discount_type == "amount":
-        #             server_price -= Decimal(sale.discount_value)
-        #         server_price = max(server_price, Decimal("0.00"))
-        # if client_price != server_price:
-        #     return jsonify({"error": f"Price mismatch for {variant.sku}"}), 400
-
         line_total = client_price * quantity
         total += line_total
         variant.quantity -= quantity
@@ -106,12 +93,18 @@ def checkout():
             status="paid"
         ))
 
+    # === Coupon logic applied after all items ===
     if coupon:
-        if coupon.min_order_value and total < coupon.min_order_value:
+        if coupon.min_order_value and total < Decimal(coupon.min_order_value):
             return jsonify({"error": "Coupon requires minimum order"}), 400
-        total -= Decimal(coupon.amount)
+        if coupon.type == "percent":
+            discount = (total * Decimal(coupon.amount) / Decimal("100")).quantize(Decimal("0.01"))
+        else:
+            discount = Decimal(coupon.amount)
+        total -= discount
         total = max(total, Decimal("0.00"))
 
+    # === Handle payment ===
     try:
         payment_result = send_cardknox_payment(total, payment_info)
         if payment_result.get("xResult") != "A":
@@ -120,12 +113,13 @@ def checkout():
         print("⚠️ Cardknox fallback mode:", e)
         payment_result = {"xRefNum": "DEV-MOCK-12345"}
 
+    # === Addresses ===
     shipping = ShippingAddress(**shipping_address)
-    db.session.add(shipping)
-
     billing = BillingAddress(**(shipping_address if billing_same else billing_data))
+    db.session.add(shipping)
     db.session.add(billing)
 
+    # === Create order ===
     order = Order(
         user_id=user_id,
         total=total,
@@ -139,6 +133,12 @@ def checkout():
 
     db.session.add(order)
     db.session.commit()
+
+    # === Track coupon usage ===
+    if coupon:
+        coupon.times_used += 1
+        db.session.commit()
+
     send_confirmation_email(order.user.email, order)
 
     return jsonify({

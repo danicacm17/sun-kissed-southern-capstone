@@ -51,6 +51,13 @@ function ManageUsers() {
     );
   });
 
+  function formatStatus(status) {
+    return status
+      .split("_")
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
   return (
     <div className="manage-users">
       <h2>Manage Users</h2>
@@ -120,7 +127,7 @@ function ManageUsers() {
             <ul>
               {selectedUser.orders.map((order) => (
                 <li key={order.order_number} style={{ marginBottom: "1rem" }}>
-                  <strong>Order #{order.order_number}</strong> — {order.status} — ${order.total}
+                  <strong>Order #{order.order_number}</strong> — {formatStatus(order.status)} — ${order.total}
                   <br />
                   <small>Placed on: {new Date(order.created_at).toLocaleDateString()}</small>
 

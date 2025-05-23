@@ -1,38 +1,124 @@
 .home {
   font-family: 'Inter', sans-serif;
-  background-color: white;
+  background-image: url('/Background.png');
+  background-attachment: fixed;
+  background-size: contain;
+  background-position: center;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* === Hero Banner === */
+.hero-banner {
+  width: 100%;
+  overflow: hidden;
+  max-height: 420px;
 }
 
 .hero-banner img {
   width: 100%;
   height: auto;
-  max-height: 420px;
+  display: block;
   object-fit: cover;
 }
 
-.tagline {
-  text-align: center;
-  margin-top: 1rem;
+.sale-banner-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
 }
 
-.home .tagline h1 {
+.sale-banner {
+  width: 100%;
+  max-width: 1500px;
+  margin-top: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.sale-banner:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+/* === Category Slideshow === */
+.slideshow-section {
+  padding: 2rem 1rem;
+  margin-top: 100px;
+}
+
+.category-swiper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.category-slide-title {
+  font-size: 1.5rem;
+  color: #0f9098;
+  margin-bottom: 1rem;
+  font-weight: 600;
   font-family: 'Inter', sans-serif;
-  font-size: 1.75rem;
-  font-style: italic;
-  color: #4e4e4e;
-  font-weight: 500;
-  margin-top: 0.5rem;
 }
 
+.category-image-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.category-image-row img {
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.category-image-row img:hover {
+  transform: scale(1.02);
+}
+
+/* === Swiper Pagination Dots === */
+.swiper-pagination-bullets {
+  bottom: 10px !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ccc;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--primary-color);
+}
+
+/* === Featured Grid ("Shop the Vibe") === */
 .featured-section {
   text-align: center;
   padding: 2rem 1rem;
+  margin-top: 100px;
 }
 
 .featured-section h2 {
-  font-size: 2rem;
-  font-family: 'Apricots', cursive;
+  font-size: 2.25rem;
+  font-family: Inter;
   color: #d8c40d;
+  -webkit-text-stroke: .15px rgba(23, 201, 213, 0.4);
+  letter-spacing: 1px;
   margin-bottom: 1.5rem;
 }
 
@@ -74,21 +160,70 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* === CTA Section === */
+.cta-section {
+  text-align: center;
+  padding: 3rem 1rem;
+  margin-top: 100px;
+  margin-bottom: 0;
+  background-color: #fdf9e2;
+}
+
+.cta-section h2 {
+  font-size: 2rem;
+  color: #0f9098;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #4e4e4e;
+}
+
+.cta-button {
+  background-color: #0f9098;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #d8c40d;
+}
+
+/* === Mobile Responsive === */
 @media (max-width: 768px) {
-  .tagline h1 {
-    font-size: 1.5rem;
+  .category-image-row {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .featured-section h2 {
-    font-size: 1.5rem;
+  .category-image-row img {
+    max-width: 90%;
+    height: auto;
   }
 
-  .featured-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+  .category-slide-title {
+    font-size: 1.25rem;
+  }
+
+  .featured-card img {
+    height: 180px;
   }
 
   .featured-card span {
+    font-size: 1rem;
+  }
+
+  .cta-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .cta-section p {
     font-size: 1rem;
   }
 }

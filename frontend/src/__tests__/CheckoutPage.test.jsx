@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import CheckoutPage from "../pages/CheckoutPage";
 import * as api from "../api/api";
@@ -71,17 +71,23 @@ describe("💳 CheckoutPage", () => {
   it("applies a valid coupon and updates summary", async () => {
     renderWithContext();
 
-    fireEvent.change(screen.getByPlaceholderText("Enter coupon"), {
+    fireEvent.change(screen.getByPlaceholderText(/Enter coupon/i), {
       target: { value: "SUMMER10" },
     });
+
     fireEvent.click(screen.getByText("Apply"));
 
     await waitFor(() => {
       expect(screen.getByText(/✓ Coupon applied/i)).toBeInTheDocument();
-      expect(screen.getByText("-$5.00")).toBeInTheDocument(); // 10% of $50
-      expect(screen.getByText((_, node) => node.textContent === "Total: $45.00")).toBeInTheDocument();
     });
+
+    const summary = screen.getByText("Summary").closest(".checkout-summary");
+
+    expect(within(summary).getByText(/\$50\.00/)).toBeInTheDocument();
+    expect(within(summary).getByText(/-?\$10\.00/)).toBeInTheDocument();
+    expect(within(summary).getByText(/\$40\.00/)).toBeInTheDocument();
   });
+
 
   it("shows error on incomplete form during checkout", async () => {
     renderWithContext();

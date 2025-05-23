@@ -23,15 +23,20 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.close-btn {
+.modal-close-btn {
   position: absolute;
-  top: 12px;
-  right: 16px;
+  top: 5px;
+  right: 5px;
   background: none;
   border: none;
   font-size: 1.6rem;
-  color: #555;
+  color: #4e4e4e;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: #d8c40d;
 }
 
 .modal-body {
@@ -43,27 +48,40 @@
 
 .modal-left {
   display: flex;
-  flex-direction: row;
+  flex-direction: column; /* 👈 stack main image and thumbnails vertically */
+  align-items: center;
   gap: 1rem;
   flex-shrink: 0;
 }
 
-.modal-right {
-  flex: 1;
-  max-width: 480px;
+.image-zoom-container {
+  width: 400px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: zoom-in;
 }
 
-.modal-left img {
+.main-product-modal-image {
   width: 100%;
-  max-width: 300px;
-  border-radius: 4px;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease, transform-origin 0.3s ease;
+  display: block;
 }
 
-.variant-thumbnails {
-  margin-top: 1rem;
+.image-zoom-container:hover .main-product-modal-image {
+  transform: scale(2.25); /* zoom factor */
+}
+
+.modal-thumbs {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .thumbnail {
@@ -71,30 +89,18 @@
   height: 60px;
   object-fit: cover;
   border: 2px solid transparent;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
+  transition: border-color 0.2s ease;
 }
 
 .thumbnail.active {
-  border-color: #0f9098;
-}
-
-.variant-images {
-  margin-top: 0.5rem;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.variant-images img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 4px;
+  border-color: var(--secondary-color);
 }
 
 .modal-right {
   flex: 1;
+  max-width: 480px;
   min-width: 280px;
 }
 
@@ -178,7 +184,6 @@
   font-size: 0.95rem;
 }
 
-/* Toast inside modal */
 @keyframes fadeOut {
   0% { opacity: 1; }
   80% { opacity: 1; }
@@ -197,14 +202,22 @@
   animation: fadeOut 1s forwards;
 }
 
-/* Mobile styling */
+/* Mobile Styling */
 @media (max-width: 768px) {
   .modal-body {
     flex-direction: column;
   }
 
+  .modal-left {
+    align-items: center;
+  }
+
   .modal-left img {
     max-width: 100%;
+  }
+
+  .modal-thumbs {
+    justify-content: center;
   }
 
   .modal-right h2 {
