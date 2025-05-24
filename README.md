@@ -1,5 +1,12 @@
 # Sun-Kissed & Southern ☀️🌴
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/95549661-47af-473e-93f4-c740384ef163/deploy-status)](https://app.netlify.com/projects/sun-kissed-and-southern/deploys)
+
+[![🌐 Live Site](https://img.shields.io/badge/Live_Site-Netlify-0f9098?style=for-the-badge&logo=netlify&logoColor=white)](https://sun-kissed-and-southern.netlify.app)
+[![🚀 Backend API](https://img.shields.io/badge/Backend-Render-4e4e4e?style=for-the-badge&logo=flask&logoColor=white)](https://sun-kissed-backend.onrender.com)
+
+---
+
 Welcome to **Sun-Kissed & Southern**, a full-stack ecommerce platform built as a capstone project for Springboard. Inspired by the Florida coast, this boutique beach lifestyle store simulates a real-world shopping experience with secure payments, dynamic product variants, order tracking, and full admin tools.
 
 ---
@@ -40,7 +47,7 @@ Welcome to **Sun-Kissed & Southern**, a full-stack ecommerce platform built as a
 ### APIs Used
 - [Cardknox](https://developer.cardknox.com/) — **sandbox payment processing**
 - [KeyDelivery](https://www.kd100.com/en/) — (optional) **shipping tracking**
-- [OpenWeatherMap](https://openweathermap.org/api) — used for blog widget (optional)
+- [OpenWeatherMap](https://openweathermap.org/api) — used for blog widget
 
 ---
 

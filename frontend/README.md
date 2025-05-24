@@ -1,12 +1,92 @@
-# React + Vite
+# 🌴 Sun-Kissed & Southern — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Live Site](https://img.shields.io/badge/Frontend-Netlify-blue?style=for-the-badge&logo=react)](https://sun-kissed-and-southern.netlify.app)
 
-Currently, two official plugins are available:
+This is the **frontend for Sun-Kissed & Southern**, a full-stack ecommerce project built in React with Vite. It supports a mobile-first, polished shopping experience for a Florida-inspired lifestyle brand.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧭 Features
 
-## Expanding the ESLint configuration
+- 🛍️ Product catalog with variants (size, color, image)
+- 📦 Sale badges + real-time discount logic
+- 🛒 Cart with localStorage (guest-friendly)
+- 🧾 Checkout w/ Cardknox sandbox payment integration
+- 🔐 Login + protected routes with JWT (localStorage persistence)
+- 🧡 Favorite products (wishlist-style)
+- 💬 Review system (with moderation)
+- 📚 Blog with optional weather content
+- 🧑‍💼 Admin dashboard tools:
+  - Product & variant management
+  - Order lifecycle: paid → fulfilled → shipped
+  - Returns, refunds, inventory restock
+  - Coupon + discount editor
+  - Analytics dashboard
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🖥️ Tech Stack
+
+- **React (Vite + JSX)**
+- **React Router** for navigation
+- **Context API** for global state (auth, cart, favorites)
+- **Scoped CSS** for modular styling
+- **Axios** for API calls
+
+## 📁 Project Structure
+
+```txt
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── context/
+│   ├── api/
+│   └── styles/
+├── public/
+│   └── assets/
+├── index.html
+├── main.jsx
+└── README.md
+```
+
+## 🔧 Local Setup
+
+```bash
+git clone https://github.com/danicacm17/sun-kissed-southern.git
+cd sun-kissed-southern/frontend
+npm install
+npm run dev
+```
+
+Runs locally at:
+👉 `http://localhost:5173`
+
+## 🔐 Environment Setup
+
+Create a `.env` file in the root of `frontend/` if needed:
+
+```env
+VITE_API_BASE_URL=http://localhost:5000
+```
+
+For production, this is handled by Netlify’s environment settings.
+
+## 🧪 Testing
+
+- Manual testing of all cart and checkout logic
+- Favorite/variant handling confirmed on product modals
+- Full admin and customer order lifecycle tested
+
+## 🌐 Deployment
+
+- **Frontend**: [Netlify](https://sun-kissed-and-southern.netlify.app)
+- **Backend**: [Render](https://sun-kissed-backend.onrender.com)
+
+## ✅ Project Status
+
+- ✅ Production-ready
+- ✅ Fully responsive
+- ✅ Frontend/Backend integrated
+- ✅ All features implemented and live
+
+## 👤 Author
+
+**Danica Murphy**  
+GitHub: [@danicacm17](https://github.com/danicacm17)

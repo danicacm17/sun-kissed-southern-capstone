@@ -1,25 +1,33 @@
 # 🌞 Sun-Kissed & Southern — Backend API
 
-This is the backend API powering **Sun-Kissed & Southern**, a modern e-commerce site focused on stylish apparel and a seamless shopping experience.
+[![🚀 Live Backend (Render)](https://img.shields.io/badge/Backend-Live--API-4e4e4e?style=for-the-badge&logo=flask&logoColor=white)](https://sun-kissed-backend.onrender.com)
+
+This is the **Flask-based backend** powering [Sun-Kissed & Southern](https://sun-kissed-and-southern.netlify.app), a modern e-commerce platform for Florida beach-inspired apparel. It includes full support for authentication, order management, discounts, returns, and admin dashboards.
+
+---
 
 ## 🚀 Features
 
-- 🔐 JWT authentication + bcrypt password hashing  
-- 👥 Role-based access (`admin`, `user`, `fulfillment`, `customer_service`)  
-- 🛒 Full cart and checkout flow  
-- 📦 Product and inventory management  
-- 📊 Admin analytics dashboard  
-- 💬 Customer reviews with moderation  
-- 💖 Favorites system  
-- 📝 Admin blog posts with weather integration  
+- 🔐 JWT authentication + role-based access (`admin`, `user`, `fulfillment`, `customer_service`)
+- 👕 Product, variant, and inventory management
+- 🛒 Full checkout + coupon logic (Cardknox sandbox mode)
+- 🔁 Returns and refunds (w/ optional restock)
+- 💬 Product reviews (with moderation)
+- 💖 Favorites system
+- 📊 Admin analytics: low stock, top customers, revenue
+- 📚 Lifestyle blog with optional weather widget
+
+---
 
 ## 🛠️ Tech Stack
 
-- Python 3.12 + Flask  
-- PostgreSQL + SQLAlchemy  
-- Flask-JWT-Extended  
-- Pytest  
-- Render (deployment)
+- Python 3.12 + Flask (REST API)
+- PostgreSQL + SQLAlchemy ORM
+- JWT via `flask-jwt-extended`
+- Alembic + Flask-Migrate
+- Pytest for testing
+- Deployed via **Render**
+---
 
 ## 📁 Project Structure
 
@@ -29,16 +37,19 @@ backend/
 │   ├── models/
 │   ├── routes/
 │   ├── __tests__/
-│   └── utils/
-├── server.py
-├── requirements.txt
+│   ├── utils/
+├── run.py
 ├── seed.py
+├── migrations/
+├── requirements.txt
 └── README.md
 ```
 
+---
+
 ## 💻 Getting Started
 
-### 1. Clone + Set Up Environment
+### 1. Clone + Set Up Virtual Environment
 
 ```bash
 git clone https://github.com/danicacm17/sun-kissed-southern.git
@@ -50,79 +61,83 @@ pip install -r requirements.txt
 
 ### 2. Create `.env` File
 
-```
-DATABASE_URL=postgresql:///sun_kissed
-JWT_SECRET_KEY=your_jwt_secret
+```ini
+FLASK_APP=run.py
+FLASK_ENV=development
+SECRET_KEY=your-secret-key
+JWT_SECRET_KEY=your-jwt-secret
+DATABASE_URL=postgresql:///sun_kissed_db
+SQLALCHEMY_DATABASE_URI=postgresql:///sun_kissed_db
+CARDKNOX_ENV=sandbox
+CARDKNOX_API_KEY=your-cardknox-sandbox-key
+KD100_API_KEY=your-kd100-key
+KD100_SECRET=your-kd100-secret
 ```
 
-### 3. Set Up Database
+### 3. Initialize the Database
 
 ```bash
-createdb sun_kissed
+flask db upgrade
+```
+
+Or manually seed:
+
+```bash
 python seed.py
 ```
+---
 
-Or manually:
-
-```bash
-flask shell
->>> from app import db
->>> db.create_all()
->>> exit()
-```
-
-### 4. Run the Server
-
-```bash
-flask run
-```
-
-App runs at: http://localhost:5000
-
-## ✅ Running Tests
+## 🧪 Run Tests
 
 ```bash
 PYTHONPATH=. pytest
 ```
 
-Test files are located in `app/__tests__/`.
+All test files are located in `app/__tests__/`.
 
-## 📊 Admin Analytics
+---
 
-- `/api/admin/analytics`
-- Returns:
-  - Orders grouped by city
-  - Revenue grouped by day
-  - Top 5 customers
-  - Low stock alerts
-  - Fulfillment summary
-
-## 📬 Example Endpoints
+## 🔐 Key Endpoints
 
 | Method | Endpoint                            | Description                     |
 |--------|-------------------------------------|---------------------------------|
 | POST   | `/api/auth/login`                   | Authenticate user               |
-| GET    | `/api/products`                     | List products                   |
-| GET    | `/api/cart`                         | Get current user’s cart         |
-| POST   | `/api/orders`                       | Submit new order                |
-| GET    | `/api/admin/analytics`              | Admin dashboard metrics         |
-| POST   | `/api/admin/products`               | Admin create product            |
-| GET    | `/api/blog`                         | Public blog feed + weather      |
+| GET    | `/api/products`                     | List all products               |
+| POST   | `/api/checkout`                     | Process order + Cardknox token  |
+| GET    | `/api/admin/analytics`              | Admin analytics dashboard       |
+| POST   | `/api/admin/products`               | Admin: create product           |
+| GET    | `/api/blog`                         | Public blog content             |
+| GET    | `/api/coupons/validate`             | Validate discount code          |
 
-## Cart Storage
+---
 
-Currently, the cart is stored on the frontend in `localStorage`. Users do not need to be signed in to use the cart. No cart data is saved on the server.
+## 🛒 Cart Storage
 
-The backend contains preliminary code for server-side cart storage (`cart.py`, `cart_routes.py`), but this is commented out for now and not required for the current functionality.
+Cart is stored **entirely in localStorage** on the frontend. Users may shop and check out as guests. No backend cart persistence is required.
 
+---
+
+## 📦 Admin Analytics
+
+Accessible via `/api/admin/analytics`, the analytics endpoint includes:
+
+- 📍 Orders grouped by city
+- 📈 Revenue trends by day
+- 🥇 Top customers
+- 🚨 Low stock alerts
+- 📬 Fulfillment summary by order
+
+---
+
+## 🏁 Deployment Status
+
+- ✅ Backend fully complete and deployed via Render  
+- ✅ All tests pass via `pytest`  
+- ✅ Connected to frontend (Netlify) and production-ready
+
+---
 
 ## 👤 Author
 
 **Danica Murphy**  
 GitHub: [@danicacm17](https://github.com/danicacm17)
-
-## 🏁 Status
-
-- ✅ Backend fully complete  
-- ✅ All tests pass (`pytest`)  
-- ✅ Ready for deployment and frontend integration  
