@@ -12,7 +12,7 @@ function Footer() {
         <Link to="/terms">Terms & Conditions</Link>
         <Link to="/privacy">Privacy Policy</Link>
       </div>
-      <p className="footer-note">{new Date().getFullYear()} Sun-Kissed & Southern. All rights reserved.</p>
+      <p className="footer-note">© {new Date().getFullYear()} Sun-Kissed & Southern. All rights reserved.</p>
     </footer>
   );
 }
